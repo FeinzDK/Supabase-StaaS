@@ -116,7 +116,7 @@ function App() {
           <h1>+ Selamat Datang Di GambarSave +</h1>
           <Form>
             <Form.Group className="mb-3" style={{ maxWidth: "500px" }}>
-              <Form.Label className="mb-3">Masukkan email anda untuk sign in ke Layanan ++┏( ￣▽￣)┛</Form.Label>
+              <Form.Label className="mb-3">Masukkan email anda untuk sign in ke Layanan ini ++┏( ￣▽￣)┛</Form.Label>
               <Form.Control
                 type="email"
                 placeholder="contoh@email.com"
