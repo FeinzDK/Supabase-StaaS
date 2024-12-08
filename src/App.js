@@ -42,7 +42,7 @@ function App() {
   async function magicLinkLogin() {
     const { data, error } = await supabase.auth.signInWithOtp({ email });
     if (error) {
-      alert("Kesalahan komunikasi dengan supabase, pastikan menggunakan alamat emailnya benar!");
+      alert("Kesalahan komunikasi dengan supabase, pastikan menggunakan alamat email asli!");
       console.log(error);
     } else {
       alert("Periksa email Anda untuk Akses Link login!");
