@@ -42,7 +42,7 @@ function App() {
   async function magicLinkLogin() {
     const { data, error } = await supabase.auth.signInWithOtp({ email });
     if (error) {
-      alert("Kesalahan komunikasi dengan supabase, pastikan menggunakan alamat email asli!");
+      alert("Kesalahan komunikasi dengan supabase, pastikan menggunakan alamat email benargit!");
       console.log(error);
     } else {
       alert("Periksa email Anda untuk Akses Link login!");
@@ -128,61 +128,63 @@ function App() {
             </Button>
           </Form>
         </>
-      ) : (
-        <>
-          <h1 className="mb-3">+ GambarSave +</h1>
-          <Button variant="danger" className="mb-3" onClick={() => signOut()}>Sign Out</Button>
-          <p>Current user: {user.email}</p>
-          <p>Use the Choose File button below to upload an image to your gallery</p>
-          <Form.Group className="mb-3" style={{ maxWidth: "500px" }}>
-            <Form.Control
-              type="file"
-              accept="image/png, image/jpeg"
-              onChange={(e) => uploadImage(e)}
-            />
-          </Form.Group>
-          <hr />
-          <h3 className="mb-2">-  Galeri Anda -</h3>
-          <Row xs={1} md={3} className="g-4">
-            {images.map((image) => (
-              <Col key={CDNURL + user.id + "/" + image.name}>
-                <Card>
-                  <Card.Img variant="top" src={CDNURL + user.id + "/" + image.name} />
-                  <Card.Body>
-                    <Card.Title>{image.name}</Card.Title>
-                    <InputGroup className="mb-3">
-                      <FormControl
-                        placeholder="Rename file"
-                        onChange={(e) => setRenameInput(e.target.value)}
-                      />
+      )
+        :
+        (
+          <>
+            <h1 className="mb-3">+ GambarSave +</h1>
+            <Button variant="danger" className="mb-3" onClick={() => signOut()}>Sign Out</Button>
+            <p>Current user: {user.email}</p>
+            <p>Use the Choose File button below to upload an image to your gallery</p>
+            <Form.Group className="mb-3" style={{ maxWidth: "500px" }}>
+              <Form.Control
+                type="file"
+                accept="image/png, image/jpeg"
+                onChange={(e) => uploadImage(e)}
+              />
+            </Form.Group>
+            <hr />
+            <h3 className="mb-2">-  Galeri Anda -</h3>
+            <Row xs={1} md={3} className="g-4">
+              {images.map((image) => (
+                <Col key={CDNURL + user.id + "/" + image.name}>
+                  <Card>
+                    <Card.Img variant="top" src={CDNURL + user.id + "/" + image.name} />
+                    <Card.Body>
+                      <Card.Title>{image.name}</Card.Title>
+                      <InputGroup className="mb-3">
+                        <FormControl
+                          placeholder="Rename file"
+                          onChange={(e) => setRenameInput(e.target.value)}
+                        />
+                        <Button
+                          variant="warning"
+                          onClick={() => renameImage(image.name, renameInput)}
+                        >
+                          Rename
+                        </Button>
+                      </InputGroup>
                       <Button
-                        variant="warning"
-                        onClick={() => renameImage(image.name, renameInput)}
+                        variant="info"
+                        className="me-2"
+                        onClick={() => downloadImage(image.name)}
                       >
-                        Rename
+                        Download
                       </Button>
-                    </InputGroup>
-                    <Button
-                      variant="info"
-                      className="me-2"
-                      onClick={() => downloadImage(image.name)}
-                    >
-                      Download
-                    </Button>
 
-                    <Button
-                      variant="danger"
-                      onClick={() => deleteImage(image.name)}
-                    >
-                      Delete
-                    </Button>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
-          </Row>
-        </>
-      )}
+                      <Button
+                        variant="danger"
+                        onClick={() => deleteImage(image.name)}
+                      >
+                        Delete
+                      </Button>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
+          </>
+        )}
     </Container>
   );
 }
