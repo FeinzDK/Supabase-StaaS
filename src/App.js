@@ -133,9 +133,9 @@ function App() {
         (
           <>
             <h1 className="mb-3">+ GambarSave +</h1>
+            <p>User saat ini: {user.email}</p>
             <Button variant="danger" className="mb-3" onClick={() => signOut()}>Sign Out</Button>
-            <p>Current user: {user.email}</p>
-            <p>Use the Choose File button below to upload an image to your gallery</p>
+            <p>Tekan button Pilih File di bawah untuk mengunggah gambar ke galeri Anda</p>
             <Form.Group className="mb-3" style={{ maxWidth: "500px" }}>
               <Form.Control
                 type="file"
