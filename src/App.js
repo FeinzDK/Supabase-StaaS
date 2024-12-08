@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { v4 as uuidv4 } from 'uuid';
 
-const CDNURL = "https://dbciokfvdyaxbryjmfz.supabase.co/storage/v1/object/public/images/";
+const CDNURL = "https://dbciokfvdyaxbryvjmfz.supabase.co/storage/v1/object/public/images/";
 
 function App() {
   const [email, setEmail] = useState("");
@@ -42,10 +42,10 @@ function App() {
   async function magicLinkLogin() {
     const { data, error } = await supabase.auth.signInWithOtp({ email });
     if (error) {
-      alert("Error communicating with supabase, make sure to use a real email address!");
+      alert("Kesalahan komunikasi dengan supabase, pastikan menggunakan alamat email asli!");
       console.log(error);
     } else {
-      alert("Check your email for a Supabase Magic Link to log in!");
+      alert("Periksa email Anda untuk Akses Link login!");
     }
   }
 
@@ -82,9 +82,9 @@ function App() {
       .move(user.id + "/" + oldName, user.id + "/" + newName);
 
     if (error) {
-      alert("Error renaming file: " + error.message);
+      alert("Kesalahan saat mengganti nama file: " + error.message);
     } else {
-      alert("File renamed successfully!");
+      alert("File berhasil di rename!");
       getImages();
     }
   }
@@ -93,26 +93,26 @@ function App() {
     const { data, error } = await supabase.storage
       .from('images')
       .download(user.id + "/" + imageName);
-  
+
     if (data) {
-      const url = URL.createObjectURL(data); // Membuat URL blob lokal
-      const link = document.createElement("a"); // Membuat elemen <a>
+      const url = URL.createObjectURL(data);
+      const link = document.createElement("a");
       link.href = url;
-      link.download = imageName; // Nama file yang akan diunduh
+      link.download = imageName;
       document.body.appendChild(link);
-      link.click(); // Memicu klik untuk mengunduh file
-      document.body.removeChild(link); // Membersihkan elemen setelah digunakan
-      URL.revokeObjectURL(url); // Melepaskan URL blob untuk menghemat memori
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
     } else {
-      alert("Error downloading file: " + error.message);
+      alert("Kesalahan saat mengunduh file: " + error.message);
     }
-  }  
+  }
 
   return (
     <Container align="center" className="container-sm mt-4">
       {user === null ? (
         <>
-       <img className="mb-3" src="/images/a11.gif" alt="Welcome GIF" style={{ width: '300px', height: 'auto' }}/>
+          <img className="mb-3" src="/images/a11.gif" alt="Welcome GIF" style={{ width: '300px', height: 'auto' }} />
           <h1>+ Selamat Datang Di GambarSave +</h1>
           <Form>
             <Form.Group className="mb-3" style={{ maxWidth: "500px" }}>
@@ -123,7 +123,7 @@ function App() {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </Form.Group>
-            <Button variant="primary" onClick={() => magicLinkLogin()}>
+            <Button variant="info" onClick={() => magicLinkLogin()}>
               Get Link
             </Button>
           </Form>
@@ -131,7 +131,7 @@ function App() {
       ) : (
         <>
           <h1 className="mb-3">+ GambarSave +</h1>
-          <Button className="mb-3" onClick={() => signOut()}>Sign Out</Button>
+          <Button variant="danger" className="mb-3" onClick={() => signOut()}>Sign Out</Button>
           <p>Current user: {user.email}</p>
           <p>Use the Choose File button below to upload an image to your gallery</p>
           <Form.Group className="mb-3" style={{ maxWidth: "500px" }}>
@@ -163,12 +163,12 @@ function App() {
                       </Button>
                     </InputGroup>
                     <Button
-  variant="primary"
-  className="me-2"
-  onClick={() => downloadImage(image.name)} // Menggunakan fungsi yang diperbarui
->
-  Download
-</Button>
+                      variant="info"
+                      className="me-2"
+                      onClick={() => downloadImage(image.name)}
+                    >
+                      Download
+                    </Button>
 
                     <Button
                       variant="danger"
